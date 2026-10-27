@@ -1,1 +1,362 @@
-/* место для вашего кода */
+/* --------------------------------------------------------------------------
+   Оверлей — переиспользуемый полупрозрачный слой поверх фона.
+   Применяется в обложке и в карточках лотов.
+   Родитель оверлея обязательно должен иметь относительное позиционирование.
+   -------------------------------------------------------------------------- */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* --------------------------------------------------------------------------
+   Блок с адресом — переиспользуется в шапке и в подвале
+   -------------------------------------------------------------------------- */
+
+.address {
+  /* Ссылки и текст выстраиваются в колонку */
+  display: flex;
+  flex-direction: column;
+  /* Ссылки занимают только ширину своего содержимого */
+  align-items: flex-start;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+/* --------------------------------------------------------------------------
+   Шапка
+   -------------------------------------------------------------------------- */
+
+.header {
+  /* Три колонки: меню, логотип по центру страницы, адрес */
+  display: grid;
+  grid-template-columns: 1fr min-content 1fr;
+  align-items: center;
+  padding: 92px 50px 87px;
+}
+
+/* Пункты меню располагаются в ряд */
+.header__links-list {
+  display: flex;
+  gap: 32px;
+}
+
+/* Маркер-кружок перед пунктами меню */
+.header__links-list-item {
+  list-style: circle;
+}
+
+/* Пункт меню без маркера */
+.header__links-list-item_no-bullit {
+  list-style: none;
+}
+
+.header__link {
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+/* Активный пункт меню отображается без подчёркивания */
+.header__link_active {
+  text-decoration: none;
+}
+
+/* Блочная ссылка-логотип: картинка растягивается на её ширину */
+.header__logo {
+  display: block;
+  width: 148px;
+}
+
+.header__logo-image {
+  display: block;
+}
+
+/* Блок с адресом прижат к правому краю своей колонки */
+.header__address {
+  justify-self: end;
+  max-width: 236px;
+}
+
+/* --------------------------------------------------------------------------
+   Обложка (входная секция)
+   -------------------------------------------------------------------------- */
+
+.cover {
+  /* Точка отсчёта для абсолютно позиционированного оверлея */
+  position: relative;
+  /* Минимальная высота гарантирует видимость фона, но позволяет секции расти */
+  min-height: 757px;
+  padding: 165px 50px 50px;
+  background: url(../images/cover.jpg) center / cover no-repeat;
+  color: #fff;
+}
+
+.cover__title {
+  /* Заголовок располагается над оверлеем */
+  position: relative;
+  z-index: 1;
+  /* Строки заголовка идут друг под другом с отступом 20px */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 100px;
+  font-weight: bold;
+  line-height: 1.15;
+  letter-spacing: 30px;
+  text-transform: uppercase;
+}
+
+/* Каждое слово заголовка занимает отдельную строку */
+.aligned-text {
+  display: block;
+}
+
+.aligned-text_left {
+  text-align: left;
+}
+
+.aligned-text_center {
+  text-align: center;
+}
+
+.aligned-text_right {
+  text-align: right;
+}
+
+/* Обнуление межбуквенного расстояния у последней буквы слова,
+   чтобы лишний отступ справа не смещал выравнивание строки */
+.no-letter-spacing {
+  letter-spacing: normal;
+}
+
+/* Контейнер подзаголовка и кнопки: текст прижат влево, кнопка — вправо */
+.cover__description {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 106px;
+}
+
+.cover__description-text {
+  font-size: 22px;
+  line-height: 28px;
+  text-transform: uppercase;
+  /* Увеличенное расстояние между словами по макету */
+  word-spacing: 18.5px;
+}
+
+.bet-button {
+  /* Сброс стандартных стилей кнопки */
+  margin: 0;
+  font: inherit;
+  /* Локальные стили кнопки */
+  padding: 11px 32px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  font-size: 22px;
+  line-height: 27px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   Секция с карточками лотов
+   -------------------------------------------------------------------------- */
+
+.lots {
+  padding: 180px 24px 0;
+}
+
+.lots__heading {
+  margin: 0 0 27px 40px;
+  font-size: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.lots__card-list {
+  /* Карточки располагаются в ряд, лишние переносятся на новую строку
+     с сохранением отступов по горизонтали и вертикали */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  /* Сброс маркеров списка */
+  list-style: none;
+}
+
+.lots__card-list-item {
+  width: 334px;
+  min-height: 596px;
+}
+
+/* Ссылка-обёртка карточки занимает всю высоту пункта списка */
+.card-link {
+  display: block;
+  height: 100%;
+  color: #fff;
+  /* Сброс подчёркивания, полученного от ссылки */
+  text-decoration: none;
+}
+
+.card {
+  /* Точка отсчёта для оверлея внутри карточки */
+  position: relative;
+  /* Заголовок прижат к верху карточки, текст — к низу */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+  height: 100%;
+  padding: 48px 40px;
+  /* Общие правила фона для всех карточек: изображение заполняет карточку и центрировано */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Классы-модификаторы задают только само фоновое изображение карточки */
+.card_type_film {
+  background-image: url(../images/card-lot-01.jpg);
+}
+
+.card_type_book {
+  background-image: url(../images/card-lot-02.jpg);
+}
+
+.card_type_picture {
+  background-image: url(../images/card-lot-03.jpg);
+}
+
+/* Содержимое карточки располагается над оверлеем */
+.card__title,
+.card__text {
+  position: relative;
+  z-index: 1;
+}
+
+.card__title {
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+.card__text {
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+/* Строчно-блочная ссылка, чтобы применились вертикальные отступы */
+.lots__look-more-link {
+  display: inline-block;
+  margin: 30px 0 0 40px;
+  font-size: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   Секция "Об аукционе"
+   -------------------------------------------------------------------------- */
+
+.about {
+  /* Левая колонка равна ширине карточки лота, правая занимает оставшееся место */
+  display: grid;
+  grid-template-columns: 334px 1fr;
+  column-gap: 25px;
+  padding: 155px 24px 0;
+}
+
+/* Круглый чёрный контейнер, логотип выровнен по центру по обеим осям */
+.about__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  height: 240px;
+  /* Размещение по горизонтальному центру левой колонки */
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: #000;
+}
+
+.about__logo-image {
+  display: block;
+  width: 148px;
+}
+
+.about__title {
+  margin: 101px 0 100px;
+  font-size: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Отступ между абзацами подстраивается под любое их количество */
+.about__text {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.about__paragraph {
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+/* --------------------------------------------------------------------------
+   Подвал сайта
+   -------------------------------------------------------------------------- */
+
+.footer {
+  /* Три колонки: адрес, меню по центру страницы, ссылки на соцсети */
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  padding: 180px 50px 82px;
+}
+
+/* В отличие от шапки, в подвале адрес прижат к левому краю колонки
+   и шире: адрес переносится перед словом «Амстердам» */
+
+.footer__address {
+  justify-self: start;
+  max-width: 265px;
+}
+
+/* Пункты меню выровнены по центру, маркеры сброшены */
+.footer__menu-list {
+  list-style: none;
+  text-align: center;
+}
+
+.footer__menu-link {
+  font-size: 18px;
+}
+
+/* Активный пункт меню отображается без подчёркивания */
+.footer__menu-link_active {
+  text-decoration: none;
+}
+
+/* Иконки соцсетей располагаются в ряд и прижаты к правому краю */
+.footer__social-list {
+  display: flex;
+  gap: 48px;
+  justify-self: end;
+  list-style: none;
+}
+
+.footer__social-link {
+  display: block;
+  width: 48px;
+}
+
+.footer__social-icon {
+  display: block;
+}
